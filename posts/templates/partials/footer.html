@@ -1,0 +1,50 @@
+<footer class="page-footer">
+  <button  id="add-post-button" name="add-post-modal" type="button" name="button">Add Post</button>
+  <a href="/posts/addpost">Add Post</a>
+  <button id="add-author-button" name="add-author-modal" type="button" name="button">Add Author</button>
+  <button id="add-category-button" name="add-category-modal" type="button" name="button">Add Category</button>
+</footer>
+
+<script>
+  addPostButton = document.getElementById("add-post-button")
+  addAuthorButton = document.getElementById("add-author-button")
+  addCategoryButton = document.getElementById("add-category-button")
+  closeModalsButtons = document.getElementsByClassName("closeModal")
+
+  for (var i = 0; i < closeModalsButtons.length; i++) {
+    closeModalsButtons[i].addEventListener("click", closeModals)
+  }
+
+  addPostButton.addEventListener("click", openModal)
+  addAuthorButton.addEventListener("click", openModal)
+  addCategoryButton.addEventListener("click", openModal)
+
+  var modals = document.getElementsByClassName("modal")
+
+  function openModal(e) {
+
+    closeModals()
+
+    document.getElementById(e.target.name).style = "display: block;"
+  }
+
+  function closeModals() {
+
+    for (var i = 0; i < modals.length; i++) {
+      modals[i].style = "display: none;"
+    }
+  }
+
+  for (var i = 0; i < modals.length; i++) {
+    window.onclick = function (e) {
+      if (e.target === modals[i]) {
+        closeModals()
+      }
+    }
+  }
+
+
+</script>
+
+</body>
+</html>

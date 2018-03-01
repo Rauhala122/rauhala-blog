@@ -1,0 +1,94 @@
+{% extends 'posts/layout.html' %}
+
+{% block title %} Blog {% endblock %}
+{% block blog %} class="active" {% endblock %}
+
+{% block content %}
+  <div class="blog-container">
+
+    <div class="blog-paginator">
+      {% for page in num_pages %}
+        <a {% if page == paginator_selected_page %} class="paginator-active" {% endif %} href="/posts/blog/{{page}}"> {{page}} </a>
+      {% endfor %}
+    </div>
+
+    <form class="blog-search-form" action="/posts/blog/{{paginator_selected_page}}" method="get">
+      <input type="text" id="search-field" name="search-q" placeholder="Search" value="{{search_text}}">
+      <button type="submit">Search</button>
+    </form>
+
+    {% if posts|length == 0 %}
+      {% if search_text|length != 0 %}
+      <h3 class="search-error-message">No results with search "{{search_text}}"</h3>
+      {% endif %}
+    {% endif %}
+
+    {% for post in posts %}
+    <a class="blog-a" href="/posts/post/{{post.id}}">
+      <div class="blogpost-container">
+        <h1 class="blog-title">{{post.title}}</h1>
+        <p class="author-title">{% for author in post.author.all %} {{author.name}} {% if post.author.all|length > 1 and author == post.author.all.0 %},{% endif %}{% endfor %}</p>
+        <p class="category-title">{% for category in post.category.all %} {{category.name}} {% endfor %}</p>
+        <div id="{{post.id}}" class="body-container">{{ post.body|safe }}</div>
+      </div>
+    </a>
+    {% endfor %}
+
+  </div>
+
+  <div class="blog-right-side">
+    <div class="blog-categories">
+      <a href="/posts/blog"><h1>Categories</h1></a>
+      <ul>
+        {% for category in categories %}
+          <form action="/posts/blog" method="get">
+          <li> <button class="category-a" name="category-q" type="submit"> {{category.name}} </button></li>
+          </form>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="blog-authors">
+      <a href="/posts/blog"><h1>Authors</h1></a>
+      <ul>
+        {% for author in authors %}
+          <form action="/posts/blog" method="get">
+          <li> <button class="author-a" name="author-q"type="submit"> {{author.name}} </button></li>
+          </form>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+<script>
+
+  var post_container = document.getElementsByClassName("body-container")
+  for(var i = 0; i < post_container.length; i++) {
+    var p_tag = post_container[i].getElementsByTagName("p")[0]
+
+    if (p_tag.textContent.length < 2) {
+      p_tag = post_container[i].getElementsByTagName("p")[1]
+    }
+
+    p_tag.style = "display: block;"
+    var p_tag_content = p_tag.textContent.substring(0, 300)
+
+    if (p_tag.textContent.length <= 300) {
+      p_tag.textContent = p_tag_content
+    } else {
+      p_tag.textContent = p_tag_content + "..."
+    }
+
+    var read_more_tag = document.createElement("a")
+    read_more_tag.textContent = " Read The Blog"
+    read_more_tag.href = "/posts/post/" + post_container[i].id
+    read_more_tag.classList.add("read-more")
+
+    p_tag.appendChild(read_more_tag)
+
+  }
+
+</script>
+
+
+{% endblock %}

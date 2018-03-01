@@ -1,0 +1,17 @@
+{% extends 'posts/layout.html' %}
+
+{% block content %}
+<h1>Add Post</h1>
+<form class="add-form" action="" method="post">
+  <p><span>Title:</span> <input type="text" placeholder="Post title..." name="post_title"></p>
+  <p><span>Author:</span> <select class="author-select" name="post_author">
+    {% for author in authors %}
+      <option value="{{author.name}}">{{author.name}}</option>
+    {% endfor %}
+  </select></p>
+  <h2>Blog Content</h2>
+  <textarea name="editor1" id="editor1" rows="10" cols="80">
+    This is my textarea to be replaced with CKEditor.
+  </textarea>
+</form>
+{% endblock %}

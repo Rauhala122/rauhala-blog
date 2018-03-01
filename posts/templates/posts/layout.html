@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rauhala - {% block title %}{% endblock %}</title>
+    {% load static %}
+    <script src="//cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+
+    </script>
+  <style media="screen">
+
+    :root {
+      --main-color: #126d9b;
+      --main-white-color: #f9fbfc;
+      --main-dark-color: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .nav-container {
+      min-height: 80px;
+      background-color: var(--main-color);
+      width: 100%;
+      /* position: fixed; */
+    }
+
+    nav {
+      width: 90%;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .headertitle {
+      font-style: Arial;
+      color: var(--main-white-color);
+      font-family: Bookman, URW;
+      margin-top: 25px;
+    }
+
+    .topnav {
+      float: right;
+      list-style: none;
+      margin-top: -35px;
+    }
+
+    .active {
+      border-radius: 2px;
+      font-weight: bold;
+      background-color: white;
+      color: black !important;
+    }
+
+    ul.topnav li {
+      float: left;
+      margin-right: 5px;
+    }
+
+    ul.topnav li a{
+      display: block;
+      cursor: pointer;
+      padding: 15px;
+      color: var(--main-white-color);
+      font-size: 1rem;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    ul.topnav li:hover{
+      border-radius: 2px;
+      font-weight: bold;
+      background-color: white;
+    }
+
+    .home {
+      background: red;
+      height: 100px;
+      display: table;
+      text-align: center;
+      width: 100%;
+    }
+
+    ul.topnav li a:hover { color: black; }
+
+    .home a {
+      display: table-cell;
+      vertical-align: middle;
+      text-decoration: none;
+      color: var(--main-white-color);
+      font-size: 1.2rem;
+    }
+
+    .home a:hover {
+      opacity: 0.7;
+    }
+
+    .posts-container {
+      width: 80%;
+      margin: auto;
+      margin-top: 50px;
+      line-height: 1.5;
+    }
+
+    .post-metas {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    .posts-container .post-category-title, .post-created-at-title, .post-author-title {
+      color: var(--main-color);
+      margin-left: 10px;
+      font-weight: bold;
+
+    }
+
+    .posts-container .post-category-title, .post-created-at-title, .post-author-title {
+      background-color: black;
+      width: fit-content;
+      margin-top: 10px;
+      border-radius: 2px;
+      padding: 15px;
+    }
+
+    .post-comments {
+      width: 100%;
+      position: absolute;
+      background-color: var(--main-dark-color);
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    .post-comments h1 {
+      color: var(--main-white-color);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .post-comments .comments-title {
+      text-align: left;
+      margin-left: 3.5%;
+    }
+
+    .post-comments input {
+      width: 90%;
+      margin: auto;
+      margin-top: 10px;
+      border: 2px solid white;
+      border-radius: 2px;
+      padding: 10px 0 10px 10px;
+    }
+
+    .post-comments textarea {
+      margin-top: 10px;
+      width: 90%;
+      padding: 10px 0 0 10px;
+      height: 70px;
+      resize: none;
+      border: 2px solid white;
+      border-radius: 2px;
+    }
+
+    textarea:focus, input:focus {
+      outline: none;
+    }
+
+    .post-comments button {
+      padding: 20px;
+      cursor: pointer;
+      margin-top: 10px;
+      background-color: var(--main-color);
+      border: none;
+      border-radius: 2px;
+      padding: 20px;
+      color: var(--main-white-color);
+    }
+
+    .post-comments ul {
+      list-style-type: none;
+      margin-top: 30px;
+    }
+
+    .post-comment {
+      width: 90%;
+      margin: auto;
+      margin-top: 25px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    .post-comment span {
+      padding: 15px 15px 0 15px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .post-comment .comment-creator {
+      float: left;
+    }
+
+    .post-comment .comment-created-at {
+      float: right;
+    }
+
+    .post-comment p {
+      padding: 40px 20px 20px 20px;
+      text-align: left;
+    }
+
+    .posts-container p, h1, h2, h3, h4, h5 {
+      margin-top: 10px;
+    }
+
+    .posts-container img {
+      /* margin-top: 40px !important; */
+      height: auto !important;
+      max-width: 100% !important;
+      max-height: 2000px;
+      padding: 10px 0 25px 0 !important;
+    }
+
+    .posts-container iframe {
+      display: block;
+      margin: auto;
+      max-height: 2000px !important;
+      max-width: 100% !important;
+      padding: 10px 0 10px 0 !important
+    }
+
+    .posts-header {
+      text-align: center;
+    }
+
+    .blog-main {
+      background-color: var(--main-dark-color);
+      width: 100%;
+      height: 100%;
+    }
+
+    .blog-container {
+      width: 60%;
+      padding: 20px 0 20px 0px;
+      position: absolute;
+      background-color: var(--main-dark-color);
+    }
+
+    .blog-paginator {
+      text-align: center;
+      padding: 10px 0 20px 0;
+    }
+
+    .blog-paginator a {
+      padding: 5px;
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .blog-paginator .paginator-active {
+      color: var(--main-color);
+      font-weight: bold;
+    }
+
+    .blogpost-container {
+      border-radius: 5px;
+      width: 90%;
+      margin: auto;
+      min-height: 35px;
+      height: fit-content;
+      margin-top: 20px;
+      background-color: var(--main-color);
+    }
+
+    .body-container {
+      width: 90%;
+      margin: auto;
+      padding: 10px;
+    }
+
+    .blogpost-container .body-container p {
+      display: none;
+    }
+
+    .blogpost-container .body-container h1 {
+      display: none;
+    }
+
+    .blogpost-container .body-container h2 {
+      display: none;
+    }
+
+    .blogpost-container .body-container h3 {
+      display: none;
+    }
+
+    .blogpost-container .body-container p:first-of-type {
+      display: block;
+      text-indent: 50px;
+    }
+
+     .blogpost-container .body-container p::first-line {
+      display: block;
+    }
+
+    .blogpost-container h1, h2, h3, h4, h5 {
+      padding: 10px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .blog-title {
+      color: var(--main-white-color);
+    }
+
+    .author-title, .category-title {
+      text-align: center !important;
+      margin-right: 10px;
+      color: var(--main-white-color);
+      font-weight: bold;
+    }
+    .read-more {
+      color: var(--main-dark-color);
+      text-decoration: none;
+    }
+
+    .read-more:hover {
+      opacity: 0.7;
+    }
+
+    .blog-a {
+      color: black;
+      text-decoration: none;
+    }
+
+    .blog-right-side {
+      width: 40%;
+      float: right;
+      padding-bottom: 30px;
+      background-color: white;
+    }
+
+    .blog-right-side .blog-categories, .blog-authors {
+      margin-top: 30px;
+      margin-left: 50px;
+    }
+
+    .blog-right-side .blog-categories ul, .blog-authors ul {
+      list-style-type: none;
+      margin-top: 15px;
+    }
+
+    .blog-right-side .blog-categories ul li, .blog-authors ul li{
+      padding: 3px;
+    }
+
+    .blog-right-side .blog-categories ul li button, .blog-authors ul li button{
+      color: var(--main-dark-color);
+      border: none;
+      background-color: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .blog-right-side .blog-categories ul li button:hover, .blog-authors ul li button:hover {
+      opacity: 0.7;
+    }
+
+    .blog-right-side .blog-categories ul li button:focus, .blog-authors ul li button:focus {
+      outline: 0;
+    }
+
+    .blog-right-side .blog-categories h1, .blog-authors h1 {
+      color: var(--main-dark-color);
+      text-decoration: underline;
+    }
+
+    .blog-search-form {
+      text-align: center;
+    }
+
+    .blog-search-form input {
+      height: 25px;
+      border: 1px solid gray;
+      border-radius: 2px;
+      width: 150px;
+      padding: 5px;
+    }
+
+    .blog-search-form input:focus {
+      outline: none;
+    }
+
+    .blog-search-form button {
+      padding: 12px;
+      width: 70px;
+      background-color: var(--main-color);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .blog-search-form button:hover {
+      outline: 0;
+    }
+
+    footer {
+      background-color: var(--main-color);
+      height: 200px;
+      width: 100%;
+    }
+
+    footer button {
+      width: 33%;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 200px;
+      cursor: pointer;
+      font-size: 1.1em;
+    }
+
+    footer button:hover {
+      opacity: 0.5;
+    }
+
+    footer button:focus {
+      outline: 0;
+    }
+
+    footer #add-post-button {
+      color: white;
+      background-color: var(--main-dark-color);
+      border: none;
+      margin: 0;
+    }
+
+    footer #add-author-button {
+      color: white;
+      background-color: var(--main-color);
+      border: none;
+      margin: 0;
+    }
+
+    footer #add-category-button {
+      color: white;
+      background-color: var(--main-dark-color);
+      border: none;
+      margin: 0;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4)
+    }
+
+    .modal-content {
+      background-color: var(--main-color);
+      margin: 15% auto;
+      padding: 20px;
+      width: 80%;
+    }
+
+    .modal-content h1, .modal-content h2 {
+      text-align: center;
+      color: white;
+    }
+
+    .add-form {
+      text-align: left;
+      padding: 20px;
+    }
+
+    .add-form input {
+      width: 80%;
+      height: 25px;
+      margin-left: 10px;
+      padding: 5px;
+      border: none;
+      border-radius: 2px;
+    }
+
+    .add-form p {
+      padding: 10px;
+    }
+
+    .add-form span {
+      font-size: 1.2rem;
+    }
+
+    .add-form select {
+      border: none;
+      height: 30px;
+
+    }
+
+    @media (min-width: 1050px) {
+      .blogpost-container {
+        width: 45%;
+        margin-left: 3%;
+        float: left;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      nav {
+        width: 100%;
+      }
+
+      .headertitle {
+        text-align: center;
+        margin-left: 0;
+      }
+
+      .topnav {
+        float: none;
+        margin: 0;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      ul.topnav li {
+        float: none;
+        text-align: center;
+      }
+
+      ul.topnav li:hover {
+        border-radius: 0;
+
+      }
+
+      .posts-container {
+        line-height: 1.2;
+      }
+
+      .blog-container {
+        width: 100%;
+        float: none;
+        position: relative;
+      }
+
+      .blog-right-side {
+        width: 100%;
+        float: none;
+      }
+
+      .blogpost-container {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+      }
+
+      .blog-right-side .blog-categories, .blog-authors {
+        margin: 0;
+        padding-top: 20px;
+        text-align: center;
+      }
+
+    }
+
+  </style>
+  </head>
+  <body>
+
+    <div id="add-post-modal" class="modal">
+      <div class="modal-content">
+          <h1>Add Post</h1>
+          <form class="add-form" action="" method="post">
+            <p><span>Title:</span> <input type="text" placeholder="Post title..." name="post_title"></p>
+            <p><span>Author:</span> <select class="author-select" name="post_author">
+              {% for author in authors %}
+                <option value="{{author.name}}">{{author.name}}</option>
+              {% endfor %}
+            </select></p>
+            <h2>Blog Content</h2>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+              This is my textarea to be replaced with CKEditor.
+            </textarea>
+          </form>
+      </div>
+    </div>
+
+    <div id="add-author-modal" class="modal">
+      <div class="modal-content">
+          <h1>Add Author</h1>
+
+      </div>
+    </div>
+
+    <div id="add-category-modal" class="modal">
+      <div class="modal-content">
+          <h1>Add Category</h1>
+
+      </div>
+    </div>
+
+    <div class="nav-container">
+    <nav>
+        <div>
+        <h1 class="headertitle">Saska Rauhala</h1>
+        </div>
+        <ul class="topnav">
+          <li><a {% block home %} {% endblock %} href="/posts">Home</a></li>
+          <li><a {% block blog %} {% endblock %} href="/posts/blog/1">Blog</a></li>
+          <li><a {% block story %} {% endblock %} href="/posts/story">Story</a></li>
+        </ul>
+    </nav>
+    </div>
+
+<div class="container">
+      {% block content %}
+
+
+      {% endblock %}
+
+</div>
+
+<script>
+  CKEDITOR.replace("editor1")
+</script>
+
+{% include 'partials/footer.html' %}
